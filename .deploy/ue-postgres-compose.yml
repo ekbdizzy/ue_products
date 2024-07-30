@@ -1,0 +1,15 @@
+services:
+  postgres-ue:
+    image: postgres:14.2
+    container_name: postgres-ue
+    restart: always
+    env_file:
+      - ../.env
+    ports:
+      - 15433:5432
+    volumes:
+      - .pg_data:/var/lib/postgresql/data
+
+networks:
+  ue-postgres:
+    name: ue-postgres
