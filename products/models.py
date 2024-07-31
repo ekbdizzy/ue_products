@@ -1,4 +1,4 @@
-from django.core.validators import MaxValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models import (
     Subquery,
@@ -80,7 +80,12 @@ class Tariff(models.Model):
 
     name = models.CharField(max_length=255, verbose_name='Name')
     base_price = models.DecimalField(
-        max_digits=10, decimal_places=2, verbose_name='Base price'
+        max_digits=10,
+        decimal_places=2,
+        validators=[
+            MinValueValidator(0),
+        ],
+        verbose_name='Base price',
     )
     product = models.ForeignKey(
         Product,
